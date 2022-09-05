@@ -8,15 +8,15 @@ type Message[S any] interface {
 	Apply(S) S
 }
 
-type Process[T, S any] struct {
+type Process[S any] struct {
 	PID   int
 	State S
 	In    chan Message[S]
 }
 
-func NewProcess[T, S any](state S) *Process[T, S] {
+func NewProcess[S any](state S) *Process[S] {
 	PID := 1
-	p := Process[T, S]{
+	p := Process[S]{
 		PID:   PID,
 		State: state,
 		In:    make(chan Message[S]),
@@ -25,7 +25,7 @@ func NewProcess[T, S any](state S) *Process[T, S] {
 	return &p
 }
 
-func (p *Process[T, S]) Run() {
+func (p *Process[S]) Run() {
 	logger.Println("Running Process")
 	for msg := range p.In {
 		logger.Println("Received message")

@@ -22,7 +22,7 @@ func (sh SayHello) Apply(st State) State {
 func Test_NewProcess(t *testing.T) {
 	logger = log.Default()
 
-	actor := NewProcess[Message[State]](State{counter: 0})
+	actor := NewProcess(State{counter: 0})
 	actor.In <- SayHello{}
 	time.Sleep(5 * time.Second)
 
